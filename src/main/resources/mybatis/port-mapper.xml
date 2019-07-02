@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PortDAO">
+
+	<insert id="insert">
+		insert into port_table values(port_table_seq.nextval, #{p_thumnail}, #{p_title}, #{p_contents}, #{p_writer}, default)
+	</insert>
+
+	<select id="selectList" resultType="kh.spring.dto.PortDTO">
+		select * from (select row_number() over(order by p_seq desc) as rown, port_table.* from port_table) WHERE ROWN BETWEEN #{array[0]} and #{array[1]} 
+	</select>
+	
+	<select id="selectCount" resultType="java.lang.Integer">
+		select count(*) from port_table
+	</select>
+	
+	<select id="selectDTO" resultType="kh.spring.dto.PortDTO">
+		select * from port_table where p_seq = ${array[0]}
+	</select>
+	
+	<update id="updateTitleBySeq">
+		update port_table set p_title = #{p_title} where p_seq = #{p_seq}
+	</update>
+	<update id="updateContentsBySeq">
+		update port_table set p_contents = #{p_contents} where p_seq = #{p_seq}
+	</update>
+	<update id="updateThumnailBySeq">
+		update port_table set p_thumnail = #{p_thumnail} where p_seq = #{p_seq}
+	</update>
+	
+	<delete id="deleteBySeq">
+		delete from port_table where p_seq = #{p_seq}
+	</delete>
+	
+</mapper>
