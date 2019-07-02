@@ -188,7 +188,6 @@ public class PortServiceImpl
 	{
 		try
 		{
-			
 			ModelAndView mav = new ModelAndView();
 			mav.setViewName("port_write");
 			mav.addObject("rewriting", "Y");
