@@ -285,12 +285,9 @@ public class PortServiceImpl
 			
 			if(deleteResult == 1)
 			{
-//				System.out.println(contents);
-//				System.out.println(contents.replaceAll(">[^<]*<", "> <"));
 				String[] contentsArr = contents.replaceAll(">[^<]*<", "> <").split("> <");
 				for(int i = 1 ; i <= contentsArr.length ; i++)
 				{
-//					System.out.println("실행시작");
 					Pattern regex = Pattern.compile("src=\"(.*)\"");
 					Matcher regexMatcher = regex.matcher(contentsArr[i-1]);
 					
@@ -299,7 +296,6 @@ public class PortServiceImpl
 						String filePath = session.getServletContext().getRealPath((regexMatcher.group(1)));
 						Paths.get(filePath).toFile().delete();
 					}
-//					System.out.println("실행끝");
 				}
 				
 				if(!thumnail.equals("/resources/default_img.jpg"))
