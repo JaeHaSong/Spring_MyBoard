@@ -100,11 +100,8 @@ img {
 		    });
 		    
 	    }
-	  	
-	    
-	    
-	    
-	    
+
+
   });
   
   onload = function()

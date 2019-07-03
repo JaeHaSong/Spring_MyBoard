@@ -35,43 +35,43 @@ public class LoginCheckAdvice
 	PortDAOImpl pdao;
 	
 	
-	@Around("execution(* kh.spring.main.HomeController.boardWrite(..))")
-	public Object loginCheck(ProceedingJoinPoint pjp)
-	{
-		Object obj;
-		try
-		{
-			String writer = pjp.getArgs()[0].toString();
-//			String title = pjp.getArgs()[1].toString();
-//			String contents = pjp.getArgs()[2].toString();
-			
-			if((writer != null) && (writer.equals((String)session.getAttribute("loginId"))))
-			{
-				try
-				{
-					mdao.selectDTOById(writer);
-					
-					obj = pjp.proceed();
-					
-					return obj;
-				}
-				catch(org.springframework.dao.EmptyResultDataAccessException e)
-				{
-					e.printStackTrace();
-				}
-			}
-			else
-			{
-				
-			}
-			return "error";
-		}
-		catch(Throwable e)
-		{
-			e.printStackTrace();
-			return "error";
-		}
-	}
+//	@Around("execution(* kh.spring.main.HomeController.boardWrite(..))")
+//	public Object loginCheck(ProceedingJoinPoint pjp)
+//	{
+//		Object obj;
+//		try
+//		{
+//			String writer = pjp.getArgs()[0].toString();
+////			String title = pjp.getArgs()[1].toString();
+////			String contents = pjp.getArgs()[2].toString();
+//			
+//			if((writer != null) && (writer.equals((String)session.getAttribute("loginId"))))
+//			{
+//				try
+//				{
+//					mdao.selectDTOById(writer);
+//					
+//					obj = pjp.proceed();
+//					
+//					return obj;
+//				}
+//				catch(org.springframework.dao.EmptyResultDataAccessException e)
+//				{
+//					e.printStackTrace();
+//				}
+//			}
+//			else
+//			{
+//				
+//			}
+//			return "error";
+//		}
+//		catch(Throwable e)
+//		{
+//			e.printStackTrace();
+//			return "error";
+//		}
+//	}
 	
 	@Around("execution(* kh.spring.serviceImpl.BoardServiceImpl.update*(..))"
 		+ " || execution(* kh.spring.serviceImpl.BoardServiceImpl.delete(..))")
@@ -103,6 +103,38 @@ public class LoginCheckAdvice
 			return "error";
 		}
 	}
+	
+	
+	
+	@Around("execution(* kh.spring.main.HomeController.boardWrite(..))"
+		+ " || execution(* kh.spring.main.HomeController.portWrite(..))"
+		+ " || execution(* kh.spring.main.HomeController.portWritePage(..))")
+	public Object loginCheck(ProceedingJoinPoint pjp)
+	{
+		System.out.println("로그인된 아이디 없음");
+		Object obj = null;
+		try
+		{
+			if(session.getAttribute("loginId") != null)
+			{
+				obj = pjp.proceed();
+				
+				return obj;
+			}
+			else
+			{
+				return "login";
+			}
+			
+		}
+		catch(Throwable e)
+		{
+			e.printStackTrace();
+			return "error";
+		}
+		
+	}
+	
 	
 //	@Around("execution(* kh.spring.main.HomeController.portWrite(..))")
 //	public Object portLoginCheck(ProceedingJoinPoint pjp)
@@ -178,4 +210,9 @@ public class LoginCheckAdvice
 //			return "error";
 //		}
 //	}
+	
+	
+	
+	
+	
 }
