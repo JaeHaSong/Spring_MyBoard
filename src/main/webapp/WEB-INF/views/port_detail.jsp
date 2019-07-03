@@ -13,7 +13,13 @@
 	
 	#header_row, #contents_row
 	{
-		min-height: 200px;
+		min-height: 150px;
+	}
+	
+	#comment_row
+	{
+		border: 1px solid black;
+		box-sizing: border-box;
 	}
 	
 </style>
@@ -34,6 +40,27 @@
 		{
 			history.back();
 		});
+		
+		$("#comment_write_btn").on("click", function()
+		{
+			var form = $('<form></form>');
+	    	form.attr('action', 'comment_write_do');
+	    	form.attr('method', 'POST');
+	    	form.appendTo('body');
+	               		
+		    var writer = $('<input type="hidden" name="writer">');
+		    var seq = $('<input type="hidden" name="seq">');
+		    var contents = $('<input type="hidden" name="contents">');
+		    	
+		   	form.append(writer).append(seq).append(contents);
+		    	
+		   	writer.val("${ loginId }");
+		   	seq.val("${ dto.p_seq }");
+		   	contents.val($("#comment_write_text").val());          			    
+		    
+		    form.submit();
+		    
+	    });
 		
 	});
         
@@ -89,6 +116,33 @@
 					</div>
 					
 				</div>
+				
+				<div id="comment_row" class="row my-5">
+				
+					<div id="comment_list_div" class="col-12 text-center d-block my-5"></div>
+					
+					<div id="comment_write_div" class="col-12 text-center d-block my-5">
+					
+						<div class="row">
+						
+							<div class="col-9">
+							
+								<input id="comment_write_text" class="form-control" type="text">
+							
+							</div>
+							
+							<div class="col-3 text-center">
+							
+								<input id="comment_write_btn" class="btn btn-info" type="button" value="댓글 작성">
+							
+							</div>
+						
+						</div>
+					
+					</div>
+					
+				</div>
+				
 			</div>
 			
 			

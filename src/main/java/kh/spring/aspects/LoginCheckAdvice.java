@@ -1,9 +1,6 @@
 
 package kh.spring.aspects;
 
-import java.io.File;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -12,14 +9,10 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
-
 import kh.spring.daoimpl.BoardDAOImpl;
 import kh.spring.daoimpl.MemberDAOImpl;
 import kh.spring.daoimpl.PortDAOImpl;
 import kh.spring.dto.BoardDTO;
-import kh.spring.dto.PortDTO;
 
 @Component
 @Aspect
